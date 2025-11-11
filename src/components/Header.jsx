@@ -58,7 +58,7 @@ export default function Header() {
           <Link to="/">
             <img
               src="/src/assets/logo.png"
-              alt="AsproIT Logo"
+              alt="logo"
               style={{
                 width: "221px",
                 height: "63px",

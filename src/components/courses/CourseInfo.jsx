@@ -7,7 +7,7 @@ export default function CourseInfo({ course }) {
     <div
       style={{
         width: "100%",
-        minHeight: "720px",
+        height: "600px",
         backgroundColor: "#000",
         fontFamily: "Poppins",
         color: "white",
@@ -54,7 +54,7 @@ export default function CourseInfo({ course }) {
             }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-  <           span style={{ fontWeight: 700, opacity: 0.9 }}>Home</span>
+              <span style={{ fontWeight: 700, opacity: 0.9 }}>Home</span>
             </Link>
             <span style={{ opacity: 0.6 }}>{">"}</span>
             <span style={{ fontWeight: 400 }}>{course.title}</span>
@@ -67,7 +67,7 @@ export default function CourseInfo({ course }) {
                 margin: 0,
                 fontSize: "48px",
                 fontWeight: 700,
-                lineHeight: "1.2",
+                lineHeight: "1.5",
                 color: "#FFFFFF",
               }}
             >

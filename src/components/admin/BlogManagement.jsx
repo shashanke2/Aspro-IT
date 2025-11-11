@@ -5,7 +5,10 @@ import blog1 from "../../assets/blog1.png";
 import blog2 from "../../assets/blog2.jpg";
 
 export default function BlogManagement() {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([
+    { image: blog1, title: "Top 10 Skills in 2025", description: "Discover the most in-demand skills to future-proof your career.",},
+    { image: blog1, title: "Generative AI for Beginners", description: "A beginner’s guide to understanding and using Generative AI.",}
+  ]);
 
   const [showPopup, setShowPopup] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
@@ -88,7 +91,8 @@ export default function BlogManagement() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0px 32px",
+          paddingBottom: "4px",
+          paddingLeft: "30px",
         }}
       >
         <div>
@@ -133,7 +137,7 @@ export default function BlogManagement() {
             key={blog.id}
             style={{
               width: "340px",
-              height: "360px",
+              height: "350px",
               background: "#343434",
               borderRadius: "20px",
               padding: "20px",
@@ -170,6 +174,9 @@ export default function BlogManagement() {
                   color: "#C9C9C9",
                   marginBottom: "10px",
                   lineHeight: "18px",
+                  whiteSpace: "normal", 
+                  wordWrap: "break-word", 
+                  overflowWrap: "break-word",
                 }}
               >
                 {blog.description}

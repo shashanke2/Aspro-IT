@@ -3,11 +3,14 @@ import { Edit3, Trash2, Plus } from "lucide-react";
 import AddCoupon from "./AddCoupon";
 
 export default function CouponManagement() {
-  const [coupons, setCoupons] = useState([]);
+  const [coupons, setCoupons] = useState([
+    { code: "WELCOME50", discount: "50%", expiry: "2025-12-31",},
+    { code: "HOLIDAY30", discount: "30%", expiry: "2025-11-30",},
+  ]);
   const [showModal, setShowModal] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
 
-  // ✅ Add / Edit Save
+  // Add / Edit Save
   const handleSaveCoupon = (couponData) => {
     if (editingIndex !== null) {
       const updated = [...coupons];
@@ -20,7 +23,7 @@ export default function CouponManagement() {
     setEditingIndex(null);
   };
 
-  // ✅ Delete Coupon
+  // Delete Coupon
   const handleDelete = (index) => {
     if (window.confirm("Are you sure you want to delete this coupon?")) {
       const updatedCoupons = coupons.filter((_, i) => i !== index);
@@ -28,7 +31,7 @@ export default function CouponManagement() {
     }
   };
 
-  // ✅ Edit Coupon
+  // Edit Coupon
   const handleEdit = (index) => {
     setEditingIndex(index);
     setShowModal(true);
@@ -85,7 +88,8 @@ export default function CouponManagement() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0px 32px",
+          paddingBottom: "4px",
+          paddingLeft: "30px",
         }}
       >
         <div>

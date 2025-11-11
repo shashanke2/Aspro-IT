@@ -2,7 +2,7 @@
 import React from "react";
 import { BookOpen, Megaphone, Users } from "lucide-react";
 
-export default function Dashboard({ courses = [], campaigns = [] }) {
+export default function Dashboard({ courses = [], campaigns = [], enrollments = [] }) {
   const stats = [
     {
       label: "Active Courses",
@@ -16,7 +16,7 @@ export default function Dashboard({ courses = [], campaigns = [] }) {
     },
     {
       label: "Total Enrollment",
-      value: "2,847", 
+      value: enrollments.length, 
       icon: <Users size={22} color="#FFFFFF" />,
     },
   ];
@@ -78,7 +78,7 @@ export default function Dashboard({ courses = [], campaigns = [] }) {
             key={index}
             style={{
               position: "relative",
-              width: "400px",
+              width: "30%",
               height: "124px",
               borderRadius: "20px",
               padding: "2px",

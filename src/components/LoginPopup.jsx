@@ -1,8 +1,10 @@
 // src/components/LoginPopup.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
-export default function LoginPopup({ onClose }) {
+export default function LoginPopup({ onClose, onSignup }) {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -147,7 +149,7 @@ export default function LoginPopup({ onClose }) {
         <button
           style={{
             width: "360px",
-            height: "44px",
+            height: "48px",
             fontFamily: "Poppins, sans-serif",
             fontWeight: 600,
             fontSize: "16px",
@@ -159,7 +161,7 @@ export default function LoginPopup({ onClose }) {
             border: "1px solid #2A2A2A",
             color: "#FFFFFF",
             marginTop: "16px",
-            marginBottom: "12px",
+            marginBottom: "8px",
           }}
           onMouseEnter={(e) => (e.target.style.border = "2px solid #FFFFFF")}
           onMouseLeave={(e) => (e.target.style.border = "1px solid #2A2A2A")}
@@ -200,12 +202,12 @@ export default function LoginPopup({ onClose }) {
           }}
         >
           New user?{" "}
-          <span
-            style={{ color: "#12549C", cursor: "pointer" }}
-            onClick={() => navigate("/signup")}
-          >
-            Signup
-          </span>
+        <span
+          style={{ color: "#12549C", cursor: "pointer" }}
+          onClick={onSignup}
+        >
+          Signup
+        </span>
         </p>
       </div>
     </div>

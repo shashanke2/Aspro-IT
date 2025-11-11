@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
-  Search,
-  Bell,
+  LogOut,
+  BadgeIndianRupee,
   LayoutDashboard,
   Megaphone,
   BookOpen,
@@ -16,13 +16,15 @@ export default function AdminHeader() {
   const navigate = useNavigate();
   const location = useLocation();
   const [hovered, setHovered] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const navItems = [
-    { label: "Dashboard", icon: <LayoutDashboard size={25} />, path: "/admin/dashboard" },
-    { label: "Campaigns", icon: <Megaphone size={25} />, path: "/admin/campaigns" },
-    { label: "Course Listings", icon: <BookOpen size={25} />, path: "/admin/course-management" },
-    { label: "Coupons Management", icon: <Tag size={25} />, path: "/admin/coupon-management" },
-    { label: "Blogs Management", icon: <FileText size={25} />, path: "/admin/blog-management" },
+    { label: "Dashboard", icon: <LayoutDashboard size={22} />, path: "/admin/dashboard" },
+    { label: "Campaigns", icon: <Megaphone size={22} />, path: "/admin/campaigns" },
+    { label: "Course Listings", icon: <BookOpen size={22} />, path: "/admin/course-management" },
+    { label: "Coupons Management", icon: <Tag size={22} />, path: "/admin/coupon-management" },
+    { label: "Blogs Management", icon: <FileText size={22} />, path: "/admin/blog-management" },
+    { label: "Payment Verification", icon: <BadgeIndianRupee size={22} />, path: "/admin/payment-verification"},
   ];
 
   return (
@@ -61,40 +63,7 @@ export default function AdminHeader() {
           </Link>
         </div>
 
-        {/* Search Bar */}
-        <div
-          style={{
-            position: "absolute",
-            top: "30px",
-            left: "375px",
-            width: "250px",
-            height: "25px",
-            borderRadius: "36px",
-            borderWidth: "3px",
-            borderStyle: "solid",
-            borderColor: "white",
-            boxShadow: "0px 4px 10px 0px rgba(61, 150, 224, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            padding: "8px 12px",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Search"
-            style={{
-              flex: 1,
-              background: "transparent",
-              border: "none",
-              color: "white",
-              outline: "none",
-              fontSize: "16px",
-            }}
-          />
-          <Search color="white" size={18} />
-        </div>
-
-        {/* Right section */}
+        {/* Right Section */}
         <div
           style={{
             position: "absolute",
@@ -104,7 +73,16 @@ export default function AdminHeader() {
             left: "1200px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              position: "relative",
+              cursor: "pointer",
+            }}
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
             <SquareUserRound size={40} color="white" />
             <span
               style={{
@@ -116,6 +94,42 @@ export default function AdminHeader() {
             >
               Admin
             </span>
+
+            {/* Dropdown */}
+            {showDropdown && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50px",
+                  right: 0,
+                  background: "#1E1E1E",
+                  borderRadius: "8px",
+                  boxShadow: "0px 4px 12px rgba(0,0,0,0.25)",
+                  overflow: "hidden",
+                  width: "120px",
+                  zIndex: 999,
+                }}
+              >
+                <button
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    width: "100%",
+                    padding: "15px",
+                    background: "none",
+                    border: "none",
+                    color: "white",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                    textAlign: "center",
+                  }}
+                >
+                  <LogOut size={20} />
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -151,7 +165,7 @@ export default function AdminHeader() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginBottom: "35px",
+            marginBottom: "30px",
             cursor: "pointer",
             color: isActive || hovered === index ? "#25A2E1" : "#FFFFFF",
             transition: "all 0.3s ease",
@@ -166,7 +180,7 @@ export default function AdminHeader() {
               fontWeight: 400,
               fontSize: "10px",
               textAlign: "center",
-              marginTop: "8px",
+              marginTop: "2px",
               letterSpacing: "0.3px",
             }}
           >

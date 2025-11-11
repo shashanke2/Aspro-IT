@@ -10,14 +10,15 @@ import Blogs from "./pages/Blogs";
 import PythonBlog from "./pages/PythonBlog";
 import GenAIBlog from "./pages/GenAIBlog";
 
-import CyberSecurity from "./pages/CyberSecurity";
-import GenAI from "./pages/GenAI";
-import DataAnalytics from "./pages/DataAnalytics";
-import BlockChain from "./pages/BlockChain";
-import CloudComputing from "./pages/CloudComputing";
-import DevOps from "./pages/DevOps";
-import FullStackDevelopment from "./pages/FullStackDevelopment";
-import PythonProgramming from "./pages/PythonProgramming";
+// import CyberSecurity from "./pages/CyberSecurity";
+// import GenAI from "./pages/GenAI";
+// import DataAnalytics from "./pages/DataAnalytics";
+// import BlockChain from "./pages/BlockChain";
+// import CloudComputing from "./pages/CloudComputing";
+// import DevOps from "./pages/DevOps";
+// import FullStackDevelopment from "./pages/FullStackDevelopment";
+// import PythonProgramming from "./pages/PythonProgramming";
+import CourseDetails from "./pages/CourseDetails.jsx";
 import Enrollment from "./pages/Enrollment";
 import ConfirmedEnroll from './pages/ConfirmedEnroll'
 
@@ -26,7 +27,8 @@ import AdminCoupon from "./pages/AdminCoupon";
 import AdminBlog from "./pages/AdminBlog";
 import AdminCampaign from "./pages/AdminCampaign";
 import AdminCourse from './pages/AdminCourse'
-import SignupPopup from "./components/SignupPopup";
+import AdminPayment from "./pages/AdminPayment";
+import PaymentFail from "./components/PaymentFail.jsx";
 
 export default function App() {
   return (
@@ -42,23 +44,25 @@ export default function App() {
           <Route path="/blogs/python" element={<PythonBlog />} />
           <Route path="/blogs/gen-ai" element={<GenAIBlog />} />
 
-          <Route path="/courses/cyber-security" element={<CyberSecurity />} />
+          {/* <Route path="/courses/cyber-security" element={<CyberSecurity />} />
           <Route path="/courses/gen-ai" element={<GenAI />} />
           <Route path="/courses/data-analytics" element={<DataAnalytics />} />
           <Route path="/courses/blockchain" element={<BlockChain />} />
           <Route path="/courses/cloud-computing" element={<CloudComputing />} />
           <Route path="/courses/devops" element={<DevOps />} />
           <Route path="/courses/fullstack-development" element={<FullStackDevelopment />} />
-          <Route path="/courses/python-programming" element={<PythonProgramming />} />
+          <Route path="/courses/python-programming" element={<PythonProgramming />} /> */}
+          <Route path="/courses/:courseSlug" element={<CourseDetails />} />
           <Route path="/courses/enrollment" element={<Enrollment />} />
           <Route path="/courses/enrollment-successful" element={<ConfirmedEnroll />} />
+          <Route path="/courses/payment-failed" element={<PaymentFail />} />
 
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/coupon-management" element={<AdminCoupon />} />
           <Route path="/admin/blog-management" element={<AdminBlog />} />
           <Route path="/admin/campaigns" element={<AdminCampaign />} />
           <Route path="/admin/course-management" element={<AdminCourse />} />
-          <Route path="/signup" element={<SignupPopup />} />
+          <Route path="/admin/payment-verification" element={<AdminPayment />} />
 
         </Routes>
       </div>

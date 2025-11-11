@@ -1,83 +1,12 @@
 // src/components/LiveLearning.jsx
 import { useState } from "react";
-import course1 from "../assets/course1.png";
-import course2 from "../assets/course2.png";
-import course3 from "../assets/course3.png";
-import course4 from "../assets/course4.png";
-import course5 from "../assets/course5.png";
-import course6 from "../assets/course6.png";
-import course7 from "../assets/course7.png";
-import course8 from "../assets/course8.png";
+import { useNavigate } from "react-router-dom";
+import { courses } from "../components/courses/CourseData";
 
 export default function LiveLearning() {
+  const navigate = useNavigate();
   const [showAll, setShowAll] = useState(false);
-
-  const courses = [
-    {
-      img: course1,
-      title: "Generative AI",
-      price: 2999,
-      originalPrice: 4999,
-      discount: "40% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course2,
-      title: "Data Analytics",
-      price: 2499,
-      originalPrice: 3999,
-      discount: "35% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course3,
-      title: "Blockchain Technology",
-      price: 3299,
-      originalPrice: 4999,
-      discount: "30% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course4,
-      title: "Cloud Computing",
-      price: 4499,
-      originalPrice: 6999,
-      discount: "35% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course5,
-      title: "DevOps",
-      price: 4999,
-      originalPrice: 7999,
-      discount: "40% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course6,
-      title: "Cyber Security",
-      price: 3799,
-      originalPrice: 5999,
-      discount: "35% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course7,
-      title: "Full Stack Development",
-      price: 4299,
-      originalPrice: 6999,
-      discount: "38% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-    {
-      img: course8,
-      title: "Python Programming",
-      price: 3599,
-      originalPrice: 5499,
-      discount: "34% OFF",
-      tags: ["Bilingual", "Live Batch"],
-    },
-  ];
+  const slugify = (title) => title.trim().toLowerCase().replace(/\s+/g, "-");
 
   const displayedCourses = showAll ? courses : courses.slice(0, 6);
 
@@ -212,22 +141,19 @@ export default function LiveLearning() {
 
               {/* Chips */}
               <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }}>
-                {course.tags.map((tag, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      borderRadius: "8px",
+                <div style={{ borderRadius: "8px",
+                      padding: "4px 8px",
+                      fontSize: "16px",
+                      color: "#FFF",
+                      background:"#FFFFFF40",
+                      fontFamily: "Poppins, sans-serif", }}>Bilingual</div>
+                <div style={{ borderRadius: "8px",
                       padding: "4px 8px",
                       fontSize: "16px",
                       color: "#FFF",
                       background:
-                        tag === "Bilingual" ? "#FFFFFF40" : "#FF000080",
-                      fontFamily: "Poppins, sans-serif",
-                    }}
-                  >
-                    {tag}
-                  </div>
-                ))}
+                      course.mode === "Live" ? "#951212" : "#375B91",
+                      fontFamily: "Poppins, sans-serif", }}>{course.mode}</div>                 
               </div>
 
               <p
@@ -307,6 +233,7 @@ export default function LiveLearning() {
                     e.target.style.background = "#FFFFFF40";
                     e.target.style.color = "#FFFFFF";
                   }}
+                  onClick={() => navigate(`/courses/${slugify(course.title)}`, { state: { course } })}
                 >
                   View Details
                 </button>

@@ -1,6 +1,7 @@
 // src/components/SignupPopup.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 
 export default function SignupPopup({ onClose }) {
   const navigate = useNavigate();
@@ -9,18 +10,22 @@ export default function SignupPopup({ onClose }) {
     <div
       style={{
         position: "fixed",
-        inset: 0,
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
         display: "flex",
+        background: "rgba(0, 0, 0, 0.5)",
+        backdropFilter: "blur(4px)",
         justifyContent: "center",
         alignItems: "center",
-        background: "rgba(0, 0, 0, 0.5)", // dark overlay for blur effect
-        backdropFilter: "blur(4px)",
         zIndex: 1000,
       }}
-      onClick={onClose} // click outside to close
+      onClick={onClose}
     >
       <div
         style={{
+          position: "relative",
           width: "461px",
           minHeight: "580px",
           border: "2px solid #FFFFFF",
@@ -30,18 +35,31 @@ export default function SignupPopup({ onClose }) {
           flexDirection: "column",
           alignItems: "center",
           padding: "24px",
-          gap: "16px",
+          gap: "8px",
           boxSizing: "border-box",
         }}
-        onClick={(e) => e.stopPropagation()}
       >
+        <span
+          style={{
+            position: "absolute",
+            top: "4px",
+            right: "12px",
+            fontSize: "32px",
+            fontWeight: "bold",
+            color: "#FFFFFF",
+            cursor: "pointer",
+          }}
+          onClick={onClose}
+        >
+          ×
+        </span>
         <h1
           style={{
             fontFamily: "Poppins, sans-serif",
             fontWeight: 600,
-            fontSize: "28px",
+            fontSize: "32px",
             color: "#FFFFFF",
-            width: "304px",
+            width: "360px",
             height: "36px",
             textAlign: "center",
             marginTop: "10px",
@@ -75,6 +93,7 @@ export default function SignupPopup({ onClose }) {
             alignSelf: "flex-start",
             marginLeft: "24px",
             marginBottom: 0,
+            marginTop: 0,
           }}
         >
           Full Name
@@ -174,6 +193,7 @@ export default function SignupPopup({ onClose }) {
             fontSize: "18px",
             cursor: "pointer",
             marginTop: "16px",
+            marginBottom: "12px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -182,6 +202,29 @@ export default function SignupPopup({ onClose }) {
           onMouseLeave={(e) => (e.target.style.border = "1px solid #2A2A2A")}
         >
           Signup
+        </button>
+
+        <button
+          style={{
+            width: "360px",
+            height: "48px",
+            color: "#434D5B",
+            borderRadius: "3.3px",
+            border: "1px solid #2A2A2A",
+            background: "#142339",
+            paddingTop: "4px",
+            paddingBottom: "16px",
+            fontFamily: "Poppins, sans-serif",
+            fontSize: "14px",
+            alignItems: "center",
+            fontWeight: 600,
+            outline: "none",
+          }}
+          onMouseEnter={(e) => (e.target.style.border = "2px solid #FFFFFF")}
+          onMouseLeave={(e) => (e.target.style.border = "1px solid #2A2A2A")}
+        >
+          <FcGoogle size={22} />
+          {" "}Continue with Google
         </button>
       </div>
     </div>

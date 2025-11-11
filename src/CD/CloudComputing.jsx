@@ -1,6 +1,8 @@
 import React from "react";
 import CourseHeader from "../components/courses/CourseHeader";
 import CourseInfo from "../components/courses/CourseInfo";
+import CourseFooter from "../components/courses/CourseFooter";
+import CourseModule from "../components/courses/CourseModule";
 
 export default function CloudComputing() {
   const courseData = {
@@ -16,6 +18,8 @@ export default function CloudComputing() {
     <div className="bg-black min-h-screen text-white">
       <CourseHeader />
       <CourseInfo course={courseData} />
+      <CourseModule  />
+      <CourseFooter />
     </div>
   );
 }

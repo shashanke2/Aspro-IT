@@ -1,15 +1,18 @@
 import React from "react";
-import { CircleCheck, LayoutDashboard } from "lucide-react";
+import { CircleAlert, LayoutDashboard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
-export default function SuccessfulEnroll() {
+export default function PaymentFail() {
   const navigate = useNavigate();
 
   return (
+    <div className="relative">
+          <Header />
     <div
       style={{
         width: "1052px",
-        height: "480px",
+        height: "400px",
         marginTop: "50px",
         marginBottom: "60px",
         marginLeft: "140px",
@@ -24,20 +27,19 @@ export default function SuccessfulEnroll() {
         padding: "30px 32px",
       }}
     >
-      {/* Green Tick */}
       <div
         style={{
           width: "70px",
           height: "70px",
           borderRadius: "35px",
-          background: "#D1FADA",
+          background: "#FF7979",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          marginBottom: "2px",
+          margin: "10px",
         }}
       >
-        <CircleCheck size={44} color="#28A745" />
+        <CircleAlert size={44} color="#AC0606" />
       </div>
 
       {/* Heading */}
@@ -46,13 +48,13 @@ export default function SuccessfulEnroll() {
           fontFamily: "Poppins, sans-serif",
           fontWeight: 600,
           fontSize: "48px",
-          color: "#28A745",
+          color: "#AC0606",
           textAlign: "center",
           marginTop: "2px",   
-          marginBottom: "0",
+          marginBottom: "20px",
         }}
       >
-        Congratulations! Your Enrollment is Confirmed.
+        Sorry! your payment is failed
       </h1>
 
       {/* Sub Heading */}
@@ -67,8 +69,7 @@ export default function SuccessfulEnroll() {
           width: "731px",
         }}
       >
-        Your payment was successful. You will receive an email shortly with your
-        course details and next steps. Welcome onboard!
+        Try Again
       </p>
 
       {/* Line */}
@@ -103,6 +104,7 @@ export default function SuccessfulEnroll() {
       >
         <LayoutDashboard size={20} color="#FFFFFF" /> Redirect to Home
       </button>
+    </div>
     </div>
   );
 }

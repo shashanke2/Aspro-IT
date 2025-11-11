@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { CircleCheckBig, CircleX } from "lucide-react";
 import blog1 from "../../assets/blog1.png";
 import blog2 from "../../assets/blog2.jpg";
-import AddCampaign from "./AddCampaign";
 
-export default function Campaign() {
-  const [campaigns, setCampaigns] = useState([
-    {img: blog1, title: "Black Friday Sale"},
-    {img: blog2, title: "New Year Career Boost"}
+export default function PaymentVerification() {
+  const [pending, setPending] = useState([
+    { id: 1, image: blog1, course: "Python Bootcamp", ID: "STU1234" },
+    { id: 2, image: blog2, course: "AI & ML Foundations", ID: "STU5678" },
   ]);
 
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [approved, setApproved] = useState([]);
 
-  const handleAddCampaign = (newCampaign) => {
-    if (!newCampaign.title || !newCampaign.image) return;
-    setCampaigns((prev) => [...prev, newCampaign]);
-    setShowAddModal(false);
+  const handleApprove = (student) => {
+    if (window.confirm("Confirm to approve payment?")) {
+      setApproved((prev) => [...prev, student]);
+      setPending((prev) => prev.filter((p) => p.id !== student.id));
+    }    
   };
 
-  const handleDelete = (index) => {
-    if (window.confirm("Are you sure you want to delete this Campaign?")) {
-      setCampaigns((prev) => prev.filter((_, i) => i !== index));
+  const handleReject = (id) => {
+    if (window.confirm("Reject this student's payment?")) {
+      setPending((prev) => prev.filter((p) => p.id !== id));
     }
   };
 
@@ -47,7 +47,7 @@ export default function Campaign() {
             marginLeft: "24px",
           }}
         >
-          Campaigns & Announcements
+          Payment Verification
         </h1>
         <p
           style={{
@@ -60,7 +60,7 @@ export default function Campaign() {
             marginLeft: "24px",
           }}
         >
-          Create and manage your marketing campaigns and announcements
+          Review pending payments and approve or reject student submissions
         </p>
       </div>
 
@@ -76,49 +76,27 @@ export default function Campaign() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingBottom: "4px",
+          paddingBottom: "8px",
           paddingLeft: "30px",
         }}
       >
-        <div>
-          <p style={{ fontSize: "20px", fontWeight: 400, marginBottom: "2px" }}>
-            Total Campaigns
-          </p>
-          <p
-            style={{
-              fontSize: "24px",
-              fontWeight: 500,
-              marginTop: "0",
-              marginBottom: "10px",
-            }}
-          >
-            {campaigns.length}
-          </p>
+        <div style={{ display: "flex", gap: "150px" }}>
+          <div>
+            <p style={{ fontSize: "20px", marginBottom: "1px" }}>Total Enrollments</p>
+            <p style={{ fontSize: "24px", fontWeight: 500, margin: 0 }}>
+              {approved.length}
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: "20px", marginBottom: "1px" }}>Pending Verifications</p>
+            <p style={{ fontSize: "24px", fontWeight: 500, margin: 0 }}>
+              {pending.length}
+            </p>
+          </div>
         </div>
-
-        {/* Add Campaign Button */}
-        <button
-          onClick={() => setShowAddModal(true)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "#525252",
-            color: "#FFFFFF",
-            fontSize: "16px",
-            borderRadius: "10px",
-            border: "none",
-            padding: "10px 10px",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-          }}
-        >
-          <Plus size={18} />
-          Add Campaigns
-        </button>
       </div>
 
-      {/* Campaign Cards */}
+      {/* Pending Cards */}
       <div
         style={{
           display: "grid",
@@ -126,16 +104,15 @@ export default function Campaign() {
           gap: "30px",
           marginLeft: "50px",
           marginTop: "50px",
-          marginBottom: "80px",
-          width: "fit-content",
+          marginBottom: "100px",
         }}
       >
-        {campaigns.map((campaign, index) => (
+        {pending.map((enroll) => (
           <div
-            key={index}
+            key={enroll.id}
             style={{
               width: "340px",
-              height: "320px",
+              height: "350px",
               background: "#343434",
               borderRadius: "20px",
               padding: "20px",
@@ -146,10 +123,10 @@ export default function Campaign() {
             }}
           >
             <img
-              src={campaign.img}
-              alt={campaign.title}
+              src={enroll.image}
+              alt={enroll.course}
               style={{
-                width: "345px",
+                width: "100%",
                 height: "179px",
                 borderRadius: "16px",
                 objectFit: "cover",
@@ -160,12 +137,22 @@ export default function Campaign() {
                 style={{
                   fontSize: "18px",
                   fontWeight: 500,
-                  marginTop: "4px",
+                  marginTop: "12px",
                   marginBottom: "8px",
                 }}
               >
-                {campaign.title}
+                {enroll.course}
               </h3>
+              <p
+                style={{
+                  fontSize: "16px",
+                  color: "#C9C9C9",
+                  fontWeight: 500,
+                  margin: 0,
+                }}
+              >
+                Enrollment ID: {enroll.ID}
+              </p>
             </div>
 
             <div
@@ -173,18 +160,23 @@ export default function Campaign() {
                 width: "100%",
                 height: "1px",
                 background: "rgba(255,255,255,0.1)",
-                marginBottom: "0px",
+                margin: "10px 0",
               }}
             ></div>
 
-            <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <button
-                onClick={() => handleDelete(index)}
+                onClick={() => handleApprove(enroll)}
                 style={{
-                  width: "80px",
+                  width: "100px",
                   height: "34px",
                   borderRadius: "10px",
-                  background: "#525252",
+                  background: "#28A745",
                   color: "#E3E3E3",
                   display: "flex",
                   alignItems: "center",
@@ -194,21 +186,33 @@ export default function Campaign() {
                   cursor: "pointer",
                 }}
               >
-                <Trash2 size={20} />
-                Delete
+                <CircleCheckBig size={20} />
+                Approve
+              </button>
+
+              <button
+                onClick={() => handleReject(enroll.id)}
+                style={{
+                  width: "100px",
+                  height: "34px",
+                  borderRadius: "10px",
+                  background: "#DC3545",
+                  color: "#E3E3E3",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "7px",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                <CircleX size={20} />
+                Reject
               </button>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Add Campaign Modal */}
-      {showAddModal && (
-        <AddCampaign
-          onClose={() => setShowAddModal(false)}
-          onSave={handleAddCampaign}
-        />
-      )}
     </div>
   );
 }

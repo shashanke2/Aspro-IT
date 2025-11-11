@@ -299,7 +299,7 @@ export default function AddCourse({ onClose, onSave, existingCourse }) {
                 <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
                   <input
                     type="radio"
-                    name="course-type"
+                    name="mode"
                     checked={type === "Live"}
                     onChange={() => setType("Live")}
                     style={{ width: "16px", height: "16px" }}
@@ -310,7 +310,7 @@ export default function AddCourse({ onClose, onSave, existingCourse }) {
                 <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
                   <input
                     type="radio"
-                    name="course-type"
+                    name="mode"
                     checked={type === "Recorded"}
                     onChange={() => setType("Recorded")}
                     style={{ width: "16px", height: "16px" }}

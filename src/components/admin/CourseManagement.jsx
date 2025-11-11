@@ -104,7 +104,8 @@ export default function CourseManagement() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0px 32px",
+          paddingBottom: "4px",
+          paddingLeft: "30px",
         }}
       >
         <div>
@@ -298,7 +299,6 @@ export default function CourseManagement() {
                 }}
               >
 
-                <div style={{ display: "flex", gap: "8px" }}>
                   <button
                     onClick={() => handleEditCourse(course)}
                     style={{
@@ -341,7 +341,6 @@ export default function CourseManagement() {
                 </div>
               </div>
             </div>
-          </div>
         ))}
       </div>
 

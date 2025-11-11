@@ -1,6 +1,7 @@
 import React from "react";
 import CourseHeader from "../components/courses/CourseHeader";
 import CourseInfo from "../components/courses/CourseInfo";
+import CourseFooter from "../components/courses/CourseFooter";
 
 export default function DataAnalytics() {
   const courseData = {
@@ -16,6 +17,7 @@ export default function DataAnalytics() {
     <div className="bg-black min-h-screen text-white">
       <CourseHeader />
       <CourseInfo course={courseData} />
+      <CourseFooter />      
     </div>
   );
 }

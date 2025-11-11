@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import LoginPopup from "../components/LoginPopup";
+import SignupPopup from "../components/SignupPopup";
+import { courses } from "../components/courses/CourseData";
 import {
   Home,
+  Download,
   BookOpen,
   Info,
   Phone,
-  Search,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
 
 export default function Header() {
+  const slugify = (title) => title.trim().toLowerCase().replace(/\s+/g, "-");
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isDownloadOpen, setIsDownloadOpen] = useState(false);
   const [isCoursesOpen, setIsCoursesOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
@@ -64,49 +68,14 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search */}
-        <div
-          style={{
-            position: "absolute",
-            top: "30px",
-            left: "358px",
-            width: "250px",
-            height: "25px",
-            borderRadius: "36px",
-            borderWidth: "3px",
-            borderStyle: "solid",
-            borderColor: "white",
-            boxShadow: "0px 4px 10px 0px rgba(61, 150, 224, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            padding: "8px 12px",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Search"
-            style={{
-              flex: 1,
-              background: "transparent",
-              border: "none",
-              color: "white",
-              outline: "none",
-              fontSize: "16px",
-            }}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-          <Search color="white" size={18} />
-        </div>
-
         {/* Nav */}
         <div
           style={{
             position: "absolute",
             top: "35px",
             display: "flex",
-            gap: "15px",
-            left: "677px",
+            gap: "45px",
+            left: "400px",
           }}
         >
           {/* Home */}
@@ -129,6 +98,80 @@ export default function Header() {
           >
             <Home size={20} /> Home
           </Link>
+
+          {/* Download Dropdown */}
+          <div
+  style={{ position: "relative" }}
+  onMouseEnter={() => setIsDownloadOpen(true)}
+  onMouseLeave={() => setIsDownloadOpen(false)}
+>
+  <Link
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "120px",
+      height: "36px",
+      gap: "5px",
+      fontFamily: "Poppins, sans-serif",
+      fontWeight: 300,
+      fontSize: "24px",
+      lineHeight: "100%",
+      textDecoration: "none",
+      color: textColor,
+      cursor: "pointer",
+    }}
+  >
+    <Download size={20} /> Download{" "}
+    {isDownloadOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+  </Link>
+
+  {isDownloadOpen && (
+    <div
+      style={{
+        position: "absolute",
+        top: "36px",
+        left: "0",
+        width: "138px",
+        background: "#343434",
+        borderRadius: "8px",
+        boxShadow: "0px 1px 20px 0px rgba(61, 150, 224, 0.5)",
+        display: "flex",
+        flexDirection: "column",
+        zIndex: 100,
+      }}
+    >
+      {[
+        { name: "Resources", link: "/resources" },
+        { name: "Certificates", link: "/certificates" },
+      ].map((item, index) => (
+        <Link
+          key={index}
+          to={item.link}
+          style={{
+            width: "138px",
+            height: "28px",
+            padding: "5px 10px",
+            borderRadius: index === 0 ? "8px 8px 0 0" : index === 1 ? "0 0 8px 8px" : "0",
+            background: "#343434",
+            color: "white",
+            fontFamily: "Poppins, sans-serif",
+            fontSize: "16px",
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            cursor: "pointer",
+            transition: "0.3s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "gray")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "#343434")}
+        >
+          {item.name}
+        </Link>
+      ))}
+    </div>
+  )}
+</div>
 
           {/* Courses Dropdown */}
           <div
@@ -176,19 +219,11 @@ export default function Header() {
                   zIndex: 100,
                 }}
               >
-                {[
-                  { name: "Cyber Security", link: "/courses/cyber-security" },
-                  { name: "Generative AI", link: "/courses/gen-ai" },
-                  { name: "Data Analytics", link: "/courses/data-analytics" },
-                  { name: "Blockchain Technology", link: "/courses/blockchain" },
-                  { name: "Cloud Computing", link: "/courses/cloud-computing" },
-                  { name: "DevOps", link: "/courses/devops" },
-                  { name: "Full Stack Development", link: "/courses/fullstack-development" },
-                  { name: "Python Programming", link: "/courses/python-programming" },
-                ].map((course, index) => (
+                {courses.map((course, index) => (
                   <Link
                     key={index}
-                    to={course.link}
+                    to={`/courses/${slugify(course.title)}`}
+                    state={{ course }}
                     style={{
                       width: "227px",
                       height: "36px",
@@ -196,7 +231,7 @@ export default function Header() {
                       borderRadius:
                         index === 0
                           ? "8px 8px 0 0"
-                          : index === 7
+                          : index === courses.length - 1
                           ? "0 0 8px 8px"
                           : "0",
                       background: "#343434",
@@ -216,7 +251,7 @@ export default function Header() {
                       (e.currentTarget.style.background = "#343434")
                     }
                   >
-                    {course.name}
+                    {course.title}
                   </Link>
                 ))}
               </div>
@@ -225,91 +260,77 @@ export default function Header() {
 
           {/* About Dropdown */}
           <div
-            style={{ position: "relative" }}
-            onMouseEnter={() => setIsAboutOpen(true)}
-            onMouseLeave={() => setIsAboutOpen(false)}
-          >
-            <div
-              onClick={() => {
-                setIsAboutOpen(!isAboutOpen);
-                setIsCoursesOpen(false);
-              }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "120px",
-                height: "36px",
-                gap: "5px",
-                fontFamily: "Poppins, sans-serif",
-                fontWeight: 300,
-                fontSize: "24px",
-                lineHeight: "100%",
-                textDecoration: "none",
-                color: textColor,
-                cursor: "pointer",
-              }}
-            >
-              <Info size={20} /> About{" "}
-              {isAboutOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </div>
+  style={{ position: "relative" }}
+  onMouseEnter={() => setIsAboutOpen(true)}
+  onMouseLeave={() => setIsAboutOpen(false)}
+>
+  <Link
+    to="/about-us"           
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: "120px",
+      height: "36px",
+      gap: "5px",
+      fontFamily: "Poppins, sans-serif",
+      fontWeight: 300,
+      fontSize: "24px",
+      lineHeight: "100%",
+      textDecoration: "none",
+      color: textColor,
+      cursor: "pointer",
+    }}
+  >
+    <Info size={20} />About{" "}
+    {isAboutOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+  </Link>
 
-            {isAboutOpen && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "36px",
-                  left: "0",
-                  width: "138px",
-                  background: "#343434",
-                  borderRadius: "8px",
-                  boxShadow: "0px 1px 20px 0px rgba(61, 150, 224, 0.5)",
-                  display: "flex",
-                  flexDirection: "column",
-                  zIndex: 100,
-                }}
-              >
-                {[
-                  { name: "Blogs", link: "/blogs" },
-                  { name: "Services", link: "/our-services" },
-                  { name: "Insights", link: "/about-us" },
-                ].map((item, index) => (
-                  <Link
-                    key={index}
-                    to={item.link}
-                    style={{
-                      width: "138px",
-                      height: "28px",
-                      padding: "5px 10px",
-                      borderRadius:
-                        index === 0
-                          ? "8px 8px 0 0"
-                          : index === 3
-                          ? "0 0 8px 8px"
-                          : "0",
-                      background: "#343434",
-                      color: "white",
-                      fontFamily: "Poppins, sans-serif",
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      textDecoration: "none",
-                      cursor: "pointer",
-                      transition: "0.3s",
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = "gray")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = "#343434")
-                    }
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+  {isAboutOpen && (
+    <div
+      style={{
+        position: "absolute",
+        top: "36px",
+        left: "0",
+        width: "138px",
+        background: "#343434",
+        borderRadius: "8px",
+        boxShadow: "0px 1px 20px 0px rgba(61, 150, 224, 0.5)",
+        display: "flex",
+        flexDirection: "column",
+        zIndex: 100,
+      }}
+    >
+      {[{ name: "Blogs", link: "/blogs" }, { name: "Services", link: "/our-services" }].map(
+        (item, index) => (
+          <Link
+            key={index}
+            to={item.link}
+            style={{
+              width: "138px",
+              height: "28px",
+              padding: "5px 10px",
+              borderRadius: index === 0 ? "8px 8px 0 0" : index === 1 ? "0 0 8px 8px" : "0",
+              background: "#343434",
+              color: "white",
+              fontFamily: "Poppins, sans-serif",
+              fontSize: "16px",
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+              cursor: "pointer",
+              transition: "0.3s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "gray")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#343434")}
+          >
+            {item.name}
+          </Link>
+        )
+      )}
+    </div>
+  )}
+</div>
 
           {/* Contact */}
           <Link
@@ -362,7 +383,16 @@ export default function Header() {
           Log in
         </button>
       </div>
-      {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
+      {showLoginPopup && (
+        <LoginPopup
+          onClose={() => setShowLoginPopup(false)}
+          onSignup={() => {
+            setShowLoginPopup(false);
+            setIsSignupOpen(true);
+          }}
+        />
+      )}
+      {isSignupOpen && <SignupPopup onClose={() => setIsSignupOpen(false)} />}
     </header>
   );
 }

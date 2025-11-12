@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.png";  
 import { Link, useLocation } from "react-router-dom";
 import LoginPopup from "../components/LoginPopup";
 import SignupPopup from "../components/SignupPopup";

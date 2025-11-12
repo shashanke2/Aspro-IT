@@ -5,12 +5,13 @@ export default function AddCourse({ onClose, onSave, existingCourse }) {
   const [step, setStep] = useState(1);
 
   // Basic Info
-  const [category, setCategory] = useState(existingCourse?.category || "");
   const [title, setTitle] = useState(existingCourse?.title || "");
   const [description, setDescription] = useState(existingCourse?.description || "");
   const [file, setFile] = useState(null); 
   const [imageUrl, setImageUrl] = useState(existingCourse?.image || ""); 
   const [type, setType] = useState(existingCourse?.type || "Live"); 
+  const [skills, setSkills] = useState([]);
+  const [skillInput, setSkillInput] = useState("");
 
   // Curriculum 
   const [modules, setModules] = useState(existingCourse?.modules || []);
@@ -115,6 +116,16 @@ export default function AddCourse({ onClose, onSave, existingCourse }) {
     setFaqs((prev) => prev.filter((f) => f.id !== id));
   };
 
+  const addSkill = () => {
+    if (skillInput.trim() === "") return;
+    setSkills([...skills, skillInput.trim()]);
+    setSkillInput("");
+  };
+
+  const removeSkill = (index) => {
+    setSkills(skills.filter((_, i) => i !== index));
+  };
+
   const handleSave = () => {
     if (!category.trim() || !title.trim() || !description.trim()) {
       setError("Please complete basic info before saving.");
@@ -211,155 +222,304 @@ export default function AddCourse({ onClose, onSave, existingCourse }) {
 
         {/* Step Content */}
         <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+
           {step === 1 && (
-            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            
+            <div
+              style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              gap: "0",
+              }}
+            >
+  {/* LEFT SIDE - Form */}
+  <div
+    style={{
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      gap: "14px",
+    }}
+  >
+    <div style={{ flex: 1, gap: "12px" }}>
+      <input
+        type="text"
+        placeholder="Course Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        style={{
+          width: "85%",
+          height: "48px",
+          borderRadius: "12px",
+          border: "1px solid rgba(255,255,255,0.06)",
+          background: "#2E2E2E",
+          color: "#FFFFFF",
+          fontSize: "15px",
+          paddingLeft: "16px",
+          fontFamily: "Poppins, sans-serif",
+          outline: "none",
+        }}
+      />
+    </div>
 
-              <div style={{ display: "flex", gap: "12px" }}>
-                <input
-                  type="text"
-                  placeholder="Course Category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  style={{
-                    flex: 1,
-                    height: "48px",
-                    borderRadius: "12px",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    background: "#2E2E2E",
-                    color: "#FFFFFF",
-                    fontSize: "15px",
-                    paddingLeft: "16px",
-                    fontFamily: "Poppins, sans-serif",
-                    outline: "none",
-                  }}
-                />
+    <textarea
+      placeholder="Course Description"
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
+      style={{
+        width: "84%",
+        height: "40px",
+        borderRadius: "10px",
+        border: "1px solid rgba(255,255,255,0.06)",
+        background: "#2E2E2E",
+        color: "#FFFFFF",
+        fontSize: "14px",
+        padding: "12px 14px",
+        fontFamily: "Poppins, sans-serif",
+        resize: "vertical",
+        outline: "none",
+      }}
+    />
 
-                <input
-                  type="text"
-                  placeholder="Course Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  style={{
-                    flex: 2,
-                    height: "48px",
-                    borderRadius: "12px",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    background: "#2E2E2E",
-                    color: "#FFFFFF",
-                    fontSize: "15px",
-                    paddingLeft: "16px",
-                    fontFamily: "Poppins, sans-serif",
-                    outline: "none",
-                  }}
-                />
-              </div>
+    {/* Upload */}
+    <label
+      htmlFor="course-image"
+      style={{
+        width: "89%",
+        height: "50px",
+        borderRadius: "14px",
+        background: "#2E2E2E",
+        border: "1px dashed rgba(255,255,255,0.08)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        cursor: "pointer",
+        overflow: "hidden",
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 500,
+          fontSize: "15px",
+          color: "#C9C9C9",
+          marginTop: "15px",
+        }}
+      >
+        Choose File
+      </p>
+      <input
+        id="course-image"
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+      />
+    </label>
 
-              <textarea
-                placeholder="Course Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                style={{
-                  width: "97%",
-                  height: "40px",
-                  borderRadius: "12px",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  background: "#2E2E2E",
-                  color: "#FFFFFF",
-                  fontSize: "14px",
-                  padding: "12px 14px",
-                  fontFamily: "Poppins, sans-serif",
-                  resize: "vertical",
-                  outline: "none",
-                }}
-              />
-              {/* Upload */}
-              <label
-                htmlFor="course-image"
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  borderRadius: "14px",
-                  background: "#2E2E2E",
-                  border: "1px dashed rgba(255,255,255,0.08)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  cursor: "pointer",
-                  overflow: "hidden",
-                }}
-              >
-                <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "15px", color: "#C9C9C9", marginTop: "15px" }}>
-                  Choose File
-                </p>
-                <input id="course-image" type="file" accept="image/*" onChange={handleFileChange} style={{ display: "none" }} />
-              </label>
+    {/* Mode selection */}
+    <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+      <label
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          cursor: "pointer",
+        }}
+      >
+        <input
+          type="radio"
+          name="mode"
+          checked={type === "Live"}
+          onChange={() => setType("Live")}
+          style={{ width: "16px", height: "16px" }}
+        />
+        <span style={{ color: "#C9C9C9", fontFamily: "Poppins, sans-serif" }}>
+          Live
+        </span>
+      </label>
 
-              <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                  <input
-                    type="radio"
-                    name="mode"
-                    checked={type === "Live"}
-                    onChange={() => setType("Live")}
-                    style={{ width: "16px", height: "16px" }}
-                  />
-                  <span style={{ color: "#C9C9C9", fontFamily: "Poppins, sans-serif" }}>Live</span>
-                </label>
-                
-                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                  <input
-                    type="radio"
-                    name="mode"
-                    checked={type === "Recorded"}
-                    onChange={() => setType("Recorded")}
-                    style={{ width: "16px", height: "16px" }}
-                  />
-                  <span style={{ color: "#C9C9C9", fontFamily: "Poppins, sans-serif" }}>Recorded</span>
-                </label>
-              </div>
+      <label
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          cursor: "pointer",
+        }}
+      >
+        <input
+          type="radio"
+          name="mode"
+          checked={type === "Recorded"}
+          onChange={() => setType("Recorded")}
+          style={{ width: "16px", height: "16px" }}
+        />
+        <span style={{ color: "#C9C9C9", fontFamily: "Poppins, sans-serif" }}>
+          Recorded
+        </span>
+      </label>
+    </div>
 
-              {/* Buttons */}
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-                <button
-                  onClick={() => {
-                    if (onClose) onClose();
-                  }}
-                  style={{
-                    width: "120px",
-                    height: "44px",
-                    borderRadius: "12px",
-                    background: "#414141",
-                    color: "#FFFFFF",
-                    fontFamily: "Poppins, sans-serif",
-                    fontSize: "15px",
-                    fontWeight: 500,
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Cancel
-                </button>
+    {/* Buttons */}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: "6px",
+        width: "63%",
+      }}
+    >
+      <button
+        onClick={() => {
+          if (onClose) onClose();
+        }}
+        style={{
+          width: "120px",
+          height: "44px",
+          borderRadius: "12px",
+          background: "#414141",
+          color: "#FFFFFF",
+          fontFamily: "Poppins, sans-serif",
+          fontSize: "15px",
+          fontWeight: 500,
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        Cancel
+      </button>
 
-                <button
-                  onClick={next}
-                  style={{
-                    width: "120px",
-                    height: "44px",
-                    borderRadius: "12px",
-                    background: "#2B6EF0",
-                    color: "#FFFFFF",
-                    fontFamily: "Poppins, sans-serif",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
+      
+    </div>
+  </div>
+
+  {/* RIGHT SIDE - Skills */}
+  <div
+    style={{
+      width: "40%",
+      display: "flex",
+      flexDirection: "column",
+      gap: "12px",
+    }}
+  >
+    <h4 style={{ color: "#FFFFFF", fontFamily: "Poppins, sans-serif", margin: 0 }}>
+      Skills
+    </h4>
+
+    <div style={{ display: "flex", gap: "8px" }}>
+      <input
+        type="text"
+        placeholder="Enter Skill"
+        value={skillInput}
+        onChange={(e) => setSkillInput(e.target.value)}
+        style={{
+          flex: 1,
+          height: "46px",
+          borderRadius: "10px",
+          border: "1px solid rgba(255,255,255,0.06)",
+          background: "#2E2E2E",
+          color: "#FFFFFF",
+          paddingLeft: "12px",
+          fontFamily: "Poppins, sans-serif",
+          outline: "none",
+        }}
+      />
+      <button
+        onClick={addSkill}
+        style={{
+          width: "130px",
+          height: "46px",
+          borderRadius: "10px",
+          background: "#2B6EF0",
+          color: "#FFFFFF",
+          border: "none",
+          cursor: "pointer",
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 600,
+        }}
+      >
+        + Add Skill
+      </button>
+    </div>
+
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "8px",
+        marginTop: "8px",
+      }}
+    >
+      {skills.length === 0 && (
+        <div
+          style={{
+            color: "#C9C9C9",
+            fontFamily: "Poppins, sans-serif",
+          }}
+        >
+          No skills added yet.
+        </div>
+      )}
+      {skills.map((s, i) => (
+        <div
+          key={i}
+          style={{
+            padding: "10px",
+            background: "#222222",
+            borderRadius: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <span
+            style={{
+              color: "#FFFFFF",
+              fontFamily: "Poppins, sans-serif",
+            }}
+          >
+            {s}
+          </span>
+          <button
+            onClick={() => removeSkill(i)}
+            style={{
+              height: "30px",
+              borderRadius: "8px",
+              background: "#414141",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+              padding: "0 10px",
+            }}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+      <button
+        onClick={next}
+        style={{
+          width: "120px",
+          height: "44px",
+          borderRadius: "12px",
+          background: "#2B6EF0",
+          color: "#FFFFFF",
+          fontFamily: "Poppins, sans-serif",
+          fontSize: "15px",
+          fontWeight: 600,
+          border: "none",
+          marginTop: "114px",
+          marginLeft: "200px",
+          cursor: "pointer",
+        }}
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
           )}
 
           {step === 2 && (

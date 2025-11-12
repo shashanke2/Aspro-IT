@@ -87,7 +87,11 @@ export default function Hero() {
 
         {/* CTA Button */}
         <a
-          href="#"
+          onClick={() => {
+            document.getElementById("live-learning")?.scrollIntoView({
+              behavior: "smooth",
+            });
+          }}
           style={{
             width: "238px",
             height: "60px",

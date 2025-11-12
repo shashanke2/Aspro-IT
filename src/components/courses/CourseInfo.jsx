@@ -1,6 +1,9 @@
 import React from "react";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import hybrid from '../../assets/hybrid.png';
+import project from '../../assets/project.png';
+import liveclass from '../../assets/liveclass.png';
 
 export default function CourseInfo({ course }) {
   return (
@@ -87,9 +90,15 @@ export default function CourseInfo({ course }) {
               width: "460px",
             }}
           >
-            {course.chips.map((c) => (
+            {[
+              "Hands-On Projects",
+              "Certification Included",
+              "Expert Mentorship",
+              "Real-World Projects",
+              "Career Support",
+            ].map((chip, index) => (
               <div
-                key={c}
+                key={index}
                 style={{
                   borderRadius: "4px",
                   padding: "8px 10px",
@@ -98,7 +107,7 @@ export default function CourseInfo({ course }) {
                   fontSize: "12px",
                 }}
               >
-                {c}
+                {chip}
               </div>
             ))}
           </div>
@@ -274,9 +283,9 @@ export default function CourseInfo({ course }) {
             }}
           >
             {[
-              { color: "#0DA745", label: "Hybrid Course" },
-              { color: "#5194FF", label: "Projects" },
-              { color: "#FAAD4F", label: "Live Classes" },
+              { img: hybrid, color: "#0DA745", label: "Hybrid Course" },
+              { img: project, color: "#5194FF", label: "Projects" },
+              { img: liveclass, color: "#FAAD4F", label: "Live Classes" },
             ].map((circle) => (
               <div
                 key={circle.label}
@@ -298,7 +307,17 @@ export default function CourseInfo({ course }) {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  >
+                <img
+                  src={circle.img}
+                  alt={circle.label}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    objectFit: "contain",
+                  }}
                 />
+                  </div>
                 <div style={{ fontSize: "16px" }}>{circle.label}</div>
               </div>
             ))}

@@ -180,7 +180,7 @@ export default function Footer() {
           >
             Company
           </h3>
-          {["Home", "Courses", "About", "Contact", "FAQ"].map((item, i) => (
+          {["Home", "Courses", "About", "Contact"].map((item, i) => (
             <a
               key={i}
               href="#"

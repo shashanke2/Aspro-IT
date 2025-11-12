@@ -58,6 +58,7 @@ export default function CouponManagement() {
             fontSize: "36px",
             color: "#FFFFFF",
             marginLeft: "24px",
+            marginBottom: 0,
           }}
         >
           Coupon Management

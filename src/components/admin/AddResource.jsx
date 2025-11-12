@@ -1,34 +1,36 @@
-// src/components/admin/AddBlog.jsx
 import React, { useState } from "react";
 import { Upload } from "lucide-react";
 
-export default function AddBlog({ onClose, onSave, existingBlog }) {
-  const [image, setImage] = useState(existingBlog?.image || "");
-  const [title, setTitle] = useState(existingBlog?.title || "");
-  const [description, setDescription] = useState(existingBlog?.description || "");
-  const [url, setUrl] = useState(existingBlog?.url || "");
+export default function AddResource({ onClose, onSave, existingResource }) {
+  const [file, setFile] = useState(existingResource?.file || "");
+  const [fileName, setFileName] = useState(existingResource?.fileName || "");
+  const [title, setTitle] = useState(existingResource?.title || "");
+  const [description, setDescription] = useState(existingResource?.description || "");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) setImage(URL.createObjectURL(file));
+  const handleFileChange = (e) => {
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile) {
+      setFile(URL.createObjectURL(uploadedFile)); // for preview/open
+      setFileName(uploadedFile.name);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !image || !description || !url) {
-      alert("Please fill all fields.");
+    if (!title || !file || !description) {
+      alert("Please fill all fields and upload a document.");
       return;
     }
 
-    const newBlog = {
+    const newResource = {
       id: Date.now(),
       title,
       description,
-      image,
-      url
+      link: file,
+      fileName,
     };
 
-    if (onSave) onSave(newBlog);
+    if (onSave) onSave(newResource);
     onClose();
   };
 
@@ -48,7 +50,7 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
       <div
         style={{
           width: "600px",
-          height: "550px",
+          height: "520px",
           background: "#1B1B1B",
           borderRadius: "20px",
           padding: "30px 40px",
@@ -68,15 +70,15 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
             textAlign: "left",
           }}
         >
-          Add Blog
+          Add Resource
         </h2>
 
-        {/* Upload Image */}
+        {/* Upload Document */}
         <label
-          htmlFor="blog-image"
+          htmlFor="resource-file"
           style={{
             width: "100%",
-            height: "120px",
+            height: "150px",
             borderRadius: "16px",
             background: "#2E2E2E",
             border: "1px dashed rgba(255,255,255,0.2)",
@@ -86,19 +88,32 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
             flexDirection: "column",
             cursor: "pointer",
             overflow: "hidden",
+            textAlign: "center",
+            padding: "10px",
           }}
         >
-          {image ? (
-            <img
-              src={image}
-              alt="Preview"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "16px",
-              }}
-            />
+          {file ? (
+            <>
+              <p
+                style={{
+                  color: "#00C853",
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  fontFamily: "Poppins, sans-serif",
+                }}
+              >
+                {fileName}
+              </p>
+              <p
+                style={{
+                  color: "#C9C9C9",
+                  fontSize: "13px",
+                  marginTop: "4px",
+                }}
+              >
+                (Click again to replace file)
+              </p>
+            </>
           ) : (
             <>
               <Upload size={40} color="#C9C9C9" />
@@ -111,15 +126,15 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
                   marginTop: "10px",
                 }}
               >
-                Upload image
+                Upload document (PDF, DOCX, PPTX)
               </p>
             </>
           )}
           <input
-            id="blog-image"
+            id="resource-file"
             type="file"
-            accept="image/*"
-            onChange={handleImageChange}
+            accept=".pdf,.doc,.docx,.ppt,.pptx"
+            onChange={handleFileChange}
             style={{ display: "none" }}
           />
         </label>
@@ -127,7 +142,7 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
         {/* Title */}
         <input
           type="text"
-          placeholder="Blog Title"
+          placeholder="Resource Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           style={{
@@ -151,7 +166,7 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
           onChange={(e) => setDescription(e.target.value)}
           style={{
             width: "94%",
-            height: "50px",
+            height: "100px",
             borderRadius: "16px",
             border: "1px solid rgba(255,255,255,0.1)",
             background: "#2E2E2E",
@@ -160,26 +175,6 @@ export default function AddBlog({ onClose, onSave, existingBlog }) {
             padding: "14px 20px",
             fontFamily: "Poppins, sans-serif",
             resize: "none",
-            outline: "none",
-          }}
-        />
-
-        {/* URL */}
-        <input
-          type="text"
-          placeholder="URL"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          style={{
-            width: "96%",
-            height: "50px",
-            borderRadius: "30px",
-            border: "1px solid rgba(255,255,255,0.1)",
-            background: "#2E2E2E",
-            color: "#FFFFFF",
-            fontSize: "18px",
-            paddingLeft: "20px",
-            fontFamily: "Poppins, sans-serif",
             outline: "none",
           }}
         />

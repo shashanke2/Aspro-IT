@@ -183,6 +183,164 @@ export default function CourseModule({ skills, modules, faqs }) {
         ))}
       </div>
 
+      {/* Reviews */}
+      <div
+        style={{
+          marginTop: "50px",
+          marginLeft: "80px",
+          color: "white",
+          fontFamily: "Poppins, sans-serif",
+        }}
+      >
+        {/* Heading */}
+        <h2
+          style={{
+            fontWeight: 600,
+            fontSize: "36px",
+            lineHeight: "100%",
+            marginBottom: "30px",
+          }}
+         >
+          Hear from Our Students
+        </h2>
+
+        {/* Review Boxes */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "left",
+            gap: "40px",
+            flexWrap: "wrap",
+          }}
+        >
+          {/* Review 1 */}
+          <div
+            style={{
+              width: "300px",
+              height: "240px",
+              background: "#101010",
+              borderRadius: "24px",
+              border: "3px solid transparent",
+              background:
+                "linear-gradient(#000, #000) padding-box, linear-gradient(180deg, #CB46DB 0%, #8A38F5 100%) border-box",
+              borderImageSlice: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "10px",
+              boxShadow: "0px 4px 12px rgba(0,0,0,0.25)",
+            }}
+          >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "50px",
+          marginTop: "12px",
+          marginBottom: "20px",
+        }}
+      >
+        <img
+          src="https://randomuser.me/api/portraits/women/44.jpg"
+          alt="Sneha Arora"
+          style={{
+            width: "75px",
+            height: "75px",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+        <div style={{ textAlign: "left" }}>
+          <h3 style={{ fontWeight: 400, fontSize: "20px", margin: "0" }}>
+            Sneha Arora
+          </h3>
+          <p style={{ fontWeight: 300, fontSize: "14px", margin: "4px 0 0" }}>
+            Pune
+          </p>
+        </div>
+      </div>
+
+      <p
+        style={{
+          width: "285px",
+          fontWeight: 400,
+          fontSize: "16px",
+          lineHeight: "100%",
+          color: "#FFFFFF",
+          opacity: 0.9,
+        }}
+      >
+        "The Cybersecurity course at AsproIT gave me confidence to switch
+        careers into tech. The hands-on projects and supportive mentors made
+        all the difference."
+      </p>
+    </div>
+
+    {/* Review 2 */}
+    <div
+      style={{
+        width: "300px",
+        height: "240px",
+        background: "#101010",
+        borderRadius: "24px",
+        border: "3px solid transparent",
+        background:
+          "linear-gradient(#000, #000) padding-box, linear-gradient(180deg, #CB46DB 0%, #8A38F5 100%) border-box",
+        borderImageSlice: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "10px",
+        boxShadow: "0px 4px 12px rgba(0,0,0,0.25)",
+      }}
+    >
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "50px",
+          marginTop: "12px",    
+          marginBottom: "20px",
+        }}
+      >
+        <img
+          src="https://randomuser.me/api/portraits/men/46.jpg"
+          alt="Rahul Mehta"
+          style={{
+            width: "75px",
+            height: "75px",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+        <div style={{ textAlign: "left" }}>
+          <h3 style={{ fontWeight: 400, fontSize: "20px", margin: "0" }}>
+            Rahul Mehta
+          </h3>
+          <p style={{ fontWeight: 300, fontSize: "14px", margin: "4px 0 0" }}>
+            Dubai
+          </p>
+        </div>
+      </div>
+      <p
+        style={{
+          width: "285px",
+          fontWeight: 400,
+          fontSize: "16px",
+          lineHeight: "100%",
+          color: "#FFFFFF",
+          opacity: 0.9,
+        }}
+      >
+        "The Python and AI course was amazing! The instructors simplified
+        complex topics, and I landed my first internship soon after completing
+        it."
+      </p>
+          </div>
+        </div>
+      </div>
+
       {/* FAQs Section */}
       <div style={{ padding: "40px 80px" }}>
         <h2

@@ -13,7 +13,7 @@ export default function Companies() {
     <section
       style={{
         width: "1440px",
-        height: "700px",
+        height: "650px",
         background:
           "radial-gradient(149.8% 402.76% at 29.09% 23.7%, #101010 11.88%, #595959 100%)",
         boxShadow:
@@ -122,27 +122,6 @@ export default function Companies() {
           ))}
         </div>
       </div>
-
-      {/* Explore Courses Button */}
-      <button
-        style={{
-          marginTop: "40px",
-          width: "487px",
-          height: "62px",
-          borderRadius: "16px",
-          background: "#FFFFFF40",
-          color: "#FFFFFF",
-          fontFamily: "Poppins, sans-serif",
-          fontWeight: 600,
-          fontSize: "24px",
-          border: "none",
-          cursor: "pointer",
-          zIndex: 1,
-          transition: "all 0.3s ease",
-        }}
-      >
-        Explore Courses
-      </button>
     </section>
   );
 }

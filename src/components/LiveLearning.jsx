@@ -11,7 +11,7 @@ export default function LiveLearning() {
   const displayedCourses = showAll ? courses : courses.slice(0, 6);
 
   return (
-    <section
+    <section id="live-learning"
       style={{
         width: "1440px",
         position: "relative",
@@ -257,6 +257,7 @@ export default function LiveLearning() {
                   onMouseLeave={(e) =>
                     (e.target.style.background = "#FFFFFFBF")
                   }
+                  onClick={() => navigate("/courses/enrollment")}
                 >
                   Buy Now
                 </button>

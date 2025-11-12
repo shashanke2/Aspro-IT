@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from '../../assets/logo.png';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
@@ -8,6 +9,7 @@ import {
   Megaphone,
   BookOpen,
   Tag,
+  NotebookPen,
   FileText,
   SquareUserRound,
 } from "lucide-react";
@@ -23,8 +25,9 @@ export default function AdminHeader() {
     { label: "Campaigns", icon: <Megaphone size={22} />, path: "/admin/campaigns" },
     { label: "Course Listings", icon: <BookOpen size={22} />, path: "/admin/course-management" },
     { label: "Coupons Management", icon: <Tag size={22} />, path: "/admin/coupon-management" },
-    { label: "Blogs Management", icon: <FileText size={22} />, path: "/admin/blog-management" },
+    { label: "Blogs Management", icon: <NotebookPen size={22} />, path: "/admin/blog-management" },
     { label: "Payment Verification", icon: <BadgeIndianRupee size={22} />, path: "/admin/payment-verification"},
+    { label: "Resources", icon: <FileText size={22} />, path: "/admin/resource-management"},
   ];
 
   return (
@@ -52,8 +55,8 @@ export default function AdminHeader() {
         >
           <Link to="/">
             <img
-              src="/src/assets/logo.png"
-              alt="AsproIT Logo"
+              src={logo}
+              alt="logo"
               style={{
                 width: "221px",
                 height: "63px",
@@ -134,7 +137,7 @@ export default function AdminHeader() {
         </div>
       </div>
 
-      {/* Left Sidebar (starts below top header) */}
+      {/* Left Sidebar */}
       <div
         style={{
           position: "fixed",
@@ -180,7 +183,8 @@ export default function AdminHeader() {
               fontWeight: 400,
               fontSize: "10px",
               textAlign: "center",
-              marginTop: "2px",
+              marginTop: 0,
+              marginBottom: 0,
               letterSpacing: "0.3px",
             }}
           >

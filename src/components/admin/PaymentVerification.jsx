@@ -80,20 +80,12 @@ export default function PaymentVerification() {
           paddingLeft: "30px",
         }}
       >
-        <div style={{ display: "flex", gap: "150px" }}>
-          <div>
-            <p style={{ fontSize: "20px", marginBottom: "1px" }}>Total Enrollments</p>
-            <p style={{ fontSize: "24px", fontWeight: 500, margin: 0 }}>
-              {approved.length}
-            </p>
-          </div>
           <div>
             <p style={{ fontSize: "20px", marginBottom: "1px" }}>Pending Verifications</p>
             <p style={{ fontSize: "24px", fontWeight: 500, margin: 0 }}>
               {pending.length}
             </p>
           </div>
-        </div>
       </div>
 
       {/* Pending Cards */}
